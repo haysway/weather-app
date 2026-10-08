@@ -1,27 +1,21 @@
 import { useState } from 'react'
+import CityForm from './components/CityForm'
+//import WeatherCard from './components/WeatherCard'
 import './App.css'
 
 function App() {
-  const [city, setCity] = useState('');
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState(null);
 
-  const cityChangeHandler = (event) => {
-    setCity(event.target.value);
-  }
-
-  const searchHandler = async (event) => {
-    event.preventDefault();
-
-    // api call here
+  const citySubmitHandler = (city) => {
+    // api calls will be here
   }
 
   return (
     <>
       <h1>Weather App</h1>
 
-      <CityForm />
+      <CityForm onCitySubmit={citySubmitHandler}/>
 
-      <WeatherCard/>
     </>
   )
 }
