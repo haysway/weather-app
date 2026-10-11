@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import ErrorModal from './ErrorModal';
 
 const initialFormState = {
@@ -23,6 +23,19 @@ function formReducer(state, action) {
 function CityForm(prop) {
     const [formState, dispatch] = useReducer(formReducer, initialFormState);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const city = formState.city.trim();
+        if (!city) return;
+
+        const timerId = setTimeout(() => {
+            prop.onCityChange(city);
+        }, 500);
+
+        return () => {
+            clearTimeout(timerId);
+        };
+    }, [formState.city, prop.onCityChange]);
 
     const submitHandler = (event) => {
         event.preventDefault();

@@ -22,9 +22,6 @@ function App() {
       }
 
       const data = await response.json();
-      const weatherData = [];
-
-      // I get all the data, and just show what I want to in the WeatherCard
 
       setWeather(data);
     } 
@@ -39,27 +36,19 @@ function App() {
     fetchCityData(city);
   }
 
-  let content = <p>No weather data avaliable.</p>;
-
-  if (weather) {
-    content = <WeatherCard weather={weather} />;
-  }
-
-  if (error) {
-    content = <p>{error}</p>;
-  }
-
-  if (isLoading) {
-    content = <p>Loading weather data...</p>;
-  }
-
   return (
     <>
       <h1>Weather App</h1>
 
-      <CityForm onCitySubmit={citySubmitHandler}/>
+      <CityForm onCityChange={fetchCityData} onCitySubmit={citySubmitHandler}/>
 
-      <section>{content}</section>
+      <section>
+        <WeatherCard
+          weather={weather}
+          isLoading={isLoading}
+          error={error}
+        />
+      </section>
     </>
   )
 }
